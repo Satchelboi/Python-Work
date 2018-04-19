@@ -1,11 +1,27 @@
 import os
+import sqlite3
+from time import sleep
+from crazy_intro import intro
+
+db = sqlite3.connect('employees.db')
+ex = db.cursor()
 
 def main():
+    intro()
+    sleep(2)
+    os.system('cls')
     choice_main =  'y'
     while choice_main == 'y' or choice_main == 'Y':
-        print('Options: \n 1. Get employee times \n 2. Get individual costs ')
-        print(' 3. Get week cost \n 4. Enter new employee \n 5. View employee \n 6. Exit program')
-        selection = input('Pick something already (***Placeholder DONT SUBMIT): ')
+        selection = input("""
+    Options: 
+    
+1. Get employee times 
+2. Get individual costs 
+3. Get week cost 
+4. Enter new employee 
+5. View employee 
+6. Exit program
+> """)
         if selection == '1':
             get_times()
             print()
@@ -30,7 +46,12 @@ def get_times():
     namesheet = namesheet_read.read()
     choice_main = 'y'
     while choice_main == 'y' or choice_main == 'Y':
-        choice = input('Please enter the number for your choice:\n 1. List Employees\n 2. Select Employee\n')
+        choice = input("""
+    Options:
+    
+1. List Employees 
+2. Select Employee
+> """)
         if choice == '1':
             emp_list()
             print()
@@ -48,7 +69,12 @@ def indv_cost():
     choice_main = 'y'
     namesheet = open('pay_rate.txt', 'r') # Juggling too many files, try to condense and sort into fewer
     while choice_main == 'y' or choice_main == 'Y':
-        menu_choice = input('1. View Employee list.\n 2. Enter employee name.\n')
+        menu_choice = input("""
+    Options: 
+    
+1. View Employee list. 
+2. Enter employee name. 
+> """)
         if menu_choice == '1':
             emp_list()
             print()
@@ -65,6 +91,20 @@ def week_cost(): # Function written in pseudocode right now, fix once files are 
 
 def emp_entry():
     os.system('cls')
+    choice_main = 'y'
+    while choice_main == 'y' or choice_main == 'Y':
+        menu_choice = input("""
+    Options: 
+    
+1. Add new employee. 
+2. Edit existing employee. 
+3. Remove employee.
+> """)
+        if menu_choice == '1':
+            emp_name = input('Enter new employee name: ')
+            emp_pos = input('Enter new employee position: ')
+            emp_pay = input('Enter new employee pay: ')
+
     return False
 
 def emp_view():
