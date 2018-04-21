@@ -6,12 +6,12 @@ from crazy_intro import intro
 db = sqlite3.connect('employees.db')
 ex = db.cursor()
 
-def main():
+def main(): # Fully functional
     intro()
     sleep(2)
     os.system('cls')
     choice_main =  'y'
-    while choice_main == 'y' or choice_main == 'Y':
+    while choice_main == 'y':
         selection = input("""
     Options: 
     
@@ -34,11 +34,10 @@ def main():
         elif selection == '5':
             emp_view()
         elif selection == '6':
+            db.close()
             exit()
         else:
             print('Does this look like a game to you? (***Change this before submitting too)')
-        choice_main = input('Do you want to do select anything else? [Y]es or [N]o: ')
-        os.system('cls')
 
 def get_times():
     os.system('cls')
@@ -46,12 +45,7 @@ def get_times():
     namesheet = namesheet_read.read()
     choice_main = 'y'
     while choice_main == 'y' or choice_main == 'Y':
-        choice = input("""
-    Options:
-    
-1. List Employees 
-2. Select Employee
-> """)
+        choice = input('Options:\n1. List Employees \n2. Select Employee\n>')
         if choice == '1':
             emp_list()
             print()
@@ -69,12 +63,7 @@ def indv_cost():
     choice_main = 'y'
     namesheet = open('pay_rate.txt', 'r') # Juggling too many files, try to condense and sort into fewer
     while choice_main == 'y' or choice_main == 'Y':
-        menu_choice = input("""
-    Options: 
-    
-1. View Employee list. 
-2. Enter employee name. 
-> """)
+        menu_choice = input('Options:\n1. View Employee list.\n2. Enter employee name.\n>')
         if menu_choice == '1':
             emp_list()
             print()
@@ -93,17 +82,16 @@ def emp_entry():
     os.system('cls')
     choice_main = 'y'
     while choice_main == 'y' or choice_main == 'Y':
-        menu_choice = input("""
-    Options: 
-    
-1. Add new employee. 
-2. Edit existing employee. 
-3. Remove employee.
-> """)
+        menu_choice = input('Options:\n1. Add new employee.\n2. Edit existing employee.\n3. Remove employee.\n>')
         if menu_choice == '1':
             emp_name = input('Enter new employee name: ')
             emp_pos = input('Enter new employee position: ')
             emp_pay = input('Enter new employee pay: ')
+            # ex.execute( <ADD emp_name to TABLE name, emp_pos to TABLE position, emp_pay to TABLE payroll> )
+        if menu_choice == '2':
+            emp_name = input('Enter employee name: ')
+            emp_type = input('Options: 1. Edit employee name\n 2. Edit employee position\n 3. Edit employee pay\n >')
+            # ex.execute(search TABLE names for emp_edit)
 
     return False
 
