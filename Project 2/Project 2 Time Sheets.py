@@ -78,20 +78,31 @@ def week_cost(): # Function written in pseudocode right now, fix once files are 
     os.system('cls')
     return False
 
-def emp_entry():
+def emp_entry(): # Whoa boy what a doozy - don't accidentally delete again
     os.system('cls')
     choice_main = 'y'
+    # Create class to call variables from
     while choice_main == 'y' or choice_main == 'Y':
         menu_choice = input('Options:\n1. Add new employee.\n2. Edit existing employee.\n3. Remove employee.\n>')
         if menu_choice == '1':
             emp_name = input('Enter new employee name: ')
             emp_pos = input('Enter new employee position: ')
             emp_pay = input('Enter new employee pay: ')
-            # ex.execute( <ADD emp_name to TABLE name, emp_pos to TABLE position, emp_pay to TABLE payroll> )
+            # Use long names to store for new entry
+            ex.execute('insert into employees values (:name, :pos, :pay)', (emp_name.name, emp_pay.pay, emp_pos.pos))
+            db.commit()
         if menu_choice == '2':
             emp_name = input('Enter employee name: ')
+            ex.execute('select * from employees where name = emp_name')
             emp_type = input('Options: 1. Edit employee name\n 2. Edit employee position\n 3. Edit employee pay\n >')
-            # ex.execute(search TABLE names for emp_edit)
+            choice_small = 'y'
+            while choice_small == 'y' or choice_small == 'Y':
+                if choice_small == '1':
+                    emp_name = input('Enter desired name: ')
+                    ex.execute('insert into employees values (?)', (emp_name.name))
+                    db.commit()
+                if choice_small == '2':
+
 
     return False
 
